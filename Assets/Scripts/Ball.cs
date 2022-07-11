@@ -6,10 +6,12 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     private Rigidbody m_Rigidbody;
+    private float BallMaxSpeed = 1.5f;
 
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        BallMaxSpeed *= GameManager.instance.BallSpeedSetting;
     }
     
     private void OnCollisionExit(Collision other)
@@ -26,9 +28,9 @@ public class Ball : MonoBehaviour
         }
 
         //max velocity
-        if (velocity.magnitude > 3.0f)
+        if (velocity.magnitude > BallMaxSpeed)
         {
-            velocity = velocity.normalized * 3.0f;
+            velocity = velocity.normalized * BallMaxSpeed;
         }
 
         m_Rigidbody.velocity = velocity;
